@@ -3,6 +3,7 @@ package gmail.com.jarosalw.owdienko.player;
 import gmail.com.jarosalw.owdienko.player.enums.HeroClass;
 import gmail.com.jarosalw.owdienko.player.enums.PlayerAttackMethod;
 import gmail.com.jarosalw.owdienko.player.enums.PlayerStatus;
+import gmail.com.jarosalw.owdienko.unit.talents.TalentType;
 
 public class PlayerHandler {
     private Player player;
@@ -18,20 +19,23 @@ public class PlayerHandler {
 
     private void setupAttackMethod() {
         if ( player.getHeroClass() == HeroClass.MAG ) {
-            playerAttackMethod = PlayerAttackMethod.MAGIC;
+            playerAttackMethod = PlayerAttackMethod.MAGICAL;
         } else {
-            playerAttackMethod = PlayerAttackMethod.WEAPON;
+            playerAttackMethod = PlayerAttackMethod.PYTHICAL;
         }
     }
 
-    public void playerAttack() {
+    public void playerAttack(int key) {
         if ( playerAttackMethod == null || !isPlayerNotDead() ) return;
 
-        //TODO: define attacks
         switch ( playerAttackMethod ) {
             case WEAPON:
                 break;
-            case MAGIC:
+            case MAGICAL:
+                //todo refactor
+                System.out.println(player.getTalents().getTalentsList().get(TalentType.MAGICAL).get(0).getTalentName() + " used!");
+                break;
+            case PYTHICAL:
                 break;
         }
     }

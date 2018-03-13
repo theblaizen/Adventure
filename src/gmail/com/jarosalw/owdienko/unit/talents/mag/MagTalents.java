@@ -1,4 +1,14 @@
 package gmail.com.jarosalw.owdienko.unit.talents.mag;
 
-public class MagTalents {
+import gmail.com.jarosalw.owdienko.unit.TalentsClass;
+import gmail.com.jarosalw.owdienko.unit.talents.BaseTalents;
+import gmail.com.jarosalw.owdienko.unit.talents.TalentsStats;
+
+public class MagTalents extends BaseTalents {
+    public MagTalents() {
+    }
+
+    public MagTalents(TalentsClass talentsClass, TalentsStats talentsStats) {
+        super(talentsClass);
+    }
 }

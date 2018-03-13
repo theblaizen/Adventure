@@ -22,5 +22,6 @@ public class Main {
 
         playerHandler.getPlayerStats();
         playerHandler.playerSay("Hi!");
+        playerHandler.playerAttack(0);
     }
 }

@@ -1,6 +1,11 @@
 package gmail.com.jarosalw.owdienko.player;
 
 import gmail.com.jarosalw.owdienko.player.enums.HeroClass;
+import gmail.com.jarosalw.owdienko.unit.TalentsClass;
+import gmail.com.jarosalw.owdienko.unit.talents.BaseTalents;
+import gmail.com.jarosalw.owdienko.unit.talents.mag.MagTalents;
+import gmail.com.jarosalw.owdienko.unit.talents.rogue.RogueTalents;
+import gmail.com.jarosalw.owdienko.unit.talents.warrior.WarriorTalents;
 import gmail.com.jarosalw.owdienko.unit.weapons.BaseWeapon;
 import gmail.com.jarosalw.owdienko.unit.weapons.InitializeWeapon;
 import gmail.com.jarosalw.owdienko.unit.weapons.WeaponStats;
@@ -28,6 +33,7 @@ public class Player {
     private HeroClass heroClass;
     private BaseWeapon weapon;
     private InitializeWeapon initializeWeapon;
+    private BaseTalents talents;
 
     public Player(PlayerBuilder builder) {
         name = builder.name;
@@ -39,6 +45,7 @@ public class Player {
         heroClass = builder.heroClass;
         weapon = builder.weapon;
         initializeWeapon = builder.initializeWeapon;
+        talents = builder.talents;
     }
 
     public String getName() {
@@ -105,6 +112,14 @@ public class Player {
         this.weapon = weapon;
     }
 
+    public BaseTalents getTalents() {
+        return talents;
+    }
+
+    public <T extends BaseTalents> void setTalents(T talents) {
+        this.talents = talents;
+    }
+
     public static class PlayerBuilder {
         private final String name;
         private final HeroClass heroClass;
@@ -116,6 +131,7 @@ public class Player {
         private int money = 230;
         private BaseWeapon weapon;
         private InitializeWeapon initializeWeapon;
+        private BaseTalents talents;
 
         public PlayerBuilder(String name, HeroClass heroClass) {
             this.name = name;
@@ -159,6 +175,10 @@ public class Player {
             return this;
         }
 
+        public <T extends BaseTalents> void setTalents(T talents) {
+            this.talents = talents;
+        }
+
         private void setupDefaultHero() {
             WeaponStats basicWeaponStats = null;
             try {
@@ -172,6 +192,9 @@ public class Player {
                                 .setDurability(10)
                                 .setCurrentDurability(10)
                                 .create();
+                        talents = (MagTalents) Class.forName(TalentsClass.MAG.getTalentsClassName()).newInstance();
+                        talents.setTalentsClass(TalentsClass.MAG);
+                        talents.initBaseTalents();
                         break;
                     case WARRIOR:
                         initializeWeapon = InitializeWeapon.BASIC_WEAPON_WARRIOR;
@@ -182,6 +205,9 @@ public class Player {
                                 .setDurability(10)
                                 .setCurrentDurability(10)
                                 .create();
+                        talents = (WarriorTalents) Class.forName(TalentsClass.WARRIOR.getTalentsClassName()).newInstance();
+                        talents.setTalentsClass(TalentsClass.WARRIOR);
+                        talents.initBaseTalents();
                         break;
                     case ROGUE:
                         initializeWeapon = InitializeWeapon.BASIC_WEAPON_ROGUE;
@@ -192,6 +218,9 @@ public class Player {
                                 .setDurability(10)
                                 .setCurrentDurability(10)
                                 .create();
+                        talents = (RogueTalents) Class.forName(TalentsClass.ROGUE.getTalentsClassName()).newInstance();
+                        talents.setTalentsClass(TalentsClass.ROGUE);
+                        talents.initBaseTalents();
                         break;
                 }
                 weapon = (BaseWeapon) Class.forName(initializeWeapon.getWeaponClass()).newInstance();

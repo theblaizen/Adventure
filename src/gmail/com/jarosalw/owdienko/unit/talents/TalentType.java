@@ -1,4 +1,8 @@
 package gmail.com.jarosalw.owdienko.unit.talents;
 
-public class TalentType {
+public enum TalentType {
+    MAGICAL,
+    PASSIVE,
+    PHYSICAL,
+    AURA
 }
